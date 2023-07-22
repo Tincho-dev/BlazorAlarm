@@ -1,8 +1,21 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
 
-<MudToggleIconButton Toggled="@isRunning" ToggledChanged="OnTimerChanged"
-                     Icon="@Icons.Material.Filled.PlayArrow" ToggledIcon="@Icons.Material.Filled.Stop" />
+<MudText Typo="Typo.h3">Reloj con Alarma</MudText>
+
+<MudCard>
+    <MudCardContent>
+        <MudDatePicker Label="Establecer Alarma:" @bind-Date="alarmDateTime" />
+        <MudButton Color="Color.Primary" OnClick="SetAlarm">Establecer Alarma</MudButton>
+
+        <MudText Typo="Typo.h5">@($"Hora Actual: {DateTime.Now:hh:mm:ss tt}")</MudText>
+            @if (timeRemaining > TimeSpan.Zero)
+        {
+            <MudText Typo="Typo.h5">@($"Tiempo restante para la alarma: {timeRemaining:hh\\:mm\\:ss}")</MudText>
+        }
+    </MudCardContent>
+</MudCard>
+
+<MudFab Icon="@Icons.Filled.PlayArrow" OnClick="OnTimerChanged" Color="Color.Primary"></MudFab>
 
 <MudText>@elapsedTime</MudText>
-
-
